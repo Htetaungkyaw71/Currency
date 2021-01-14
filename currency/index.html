@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency exchange</title>
+    <script>
+        document.addEventListener("DOMContentLoaded",()=>{
+            document.querySelector('form').onsubmit =()=>{
+            fetch("https://api.exchangeratesapi.io/latest?base=USD")
+            .then(response=>response.json())
+            .then(data =>{
+                let currency = document.querySelector("#currency").value.toUpperCase();
+                let rate = data.rates[currency];
+                if(rate !== undefined){
+                    document.querySelector('#exchange').innerHTML = `1USD is equal to ${rate.toFixed(3)} for ${currency}`
+                }else{
+                    document.querySelector('#exchange').innerHTML = `invalid currency`;
+                }
+            });
+            return false;
+
+            }
+           
+        });
+    </script>
+    <style>
+        body{
+            background-image: url(2.jpg);
+           
+            background-repeat: no-repeat;
+            background-size: cover;
+           
+        }
+        .card{
+           
+            background-color: #4BD5E7;
+            text-align: center;
+            width: 250px;
+            height: 50px;
+            margin: 150px auto;
+            padding: 50px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 3px 3px 3px 3px #1e9aaa;
+            animation-name: he;
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+            
+        }
+        .card #currency{
+             width: 170px;
+             height: 25px;
+             border: none;
+        }
+        .card .s{
+            width: 70px;
+            height: 25px;
+            border: 2px solid white;
+            border-radius: 10px;
+            background-color: transparent;
+            color: white;
+            transition: 0.5s;
+          
+        }.s:hover{
+            background-color: white;
+            color: black;
+        }
+        @keyframes he {
+            from{
+                opacity: 0;
+            }
+            to{
+                opacity: 1;
+            }
+        }
+        h1{
+          
+            color: white;
+         text-align: center;
+          
+           
+        }
+     
+    </style>
+</head>
+<body>
+    <h1>Currency Exchange rate</h1>
+    <div class="card">
+        <form>
+           <input type="text" id="currency">
+           <input type="submit" value="convert" class="s">
+        </form>
+        <br>
+        <div id="exchange" style="color: 
+        white;">
+     
+        </div>
+    </div>
+    
+</body>
+</html>
